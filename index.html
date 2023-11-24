@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: linear-gradient(to bottom, #000000, #333333); /* Black gradient background */
+      color: white; /* Text color */
+    
+      height: 100vh; /* Ensure the body takes up the full height of the viewport */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    h1{
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .form-container {
+      max-width: 400px;
+      height:400px;
+      margin: 0 auto;
+      background-color: #333; 
+      padding: 20px;
+      border-radius: 30px;
+      text-align: left; 
+    }
+    input{
+      background-color: #585454;
+      color:white;
+      border-radius:5px;
+      font-size: 20px;
+      width:10em;
+      margin-left:40px;
+    }
+
+    .error {
+      color: red;
+    }
+
+    .register-button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #3498db; 
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-left:35%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="form-container">
+    <h1>Registration Form</h1><br><br>
+    <form id="registration-form" onsubmit="return validateForm()">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <span id="username-error" class="error"></span><br><br>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <span id="email-error" class="error"></span><br><br>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <span id="password-error" class="error"></span><br><br>
+
+      <label for="confirm-password">Confirm Password:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+      <span id="confirm-password-error" class="error"></span><br><br><br><br>
+
+      <button type="submit" class="register-button">Register</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirm-password").value;
+
+      // Reset error messages
+      document.getElementById("username-error").textContent = "";
+      document.getElementById("email-error").textContent = "";
+      document.getElementById("password-error").textContent = "";
+      document.getElementById("confirm-password-error").textContent = "";
+
+      let valid = true;
+
+      if (username.trim() === "") {
+        document.getElementById("username-error").textContent = "Username is required";
+        valid = false;
+      }
+
+      if (email.trim() === "") {
+        document.getElementById("email-error").textContent = "Email is required";
+        valid = false;
+      } else if (!isValidEmail(email)) {
+        document.getElementById("email-error").textContent = "Invalid email format";
+        valid = false;
+      }
+
+      if (password.trim() === "") {
+        document.getElementById("password-error").textContent = "Password is required";
+        valid = false;
+      } else if (password.length < 8) {
+        document.getElementById("password-error").textContent = "Password must be at least 8 characters";
+        valid = false;
+      }
+
+      if (confirmPassword.trim() === "") {
+        document.getElementById("confirm-password-error").textContent = "Please confirm your password";
+        valid = false;
+      } else if (confirmPassword !== password) {
+        document.getElementById("confirm-password-error").textContent = "Passwords do not match";
+        valid = false;
+      }
+
+      return valid;
+    }
+
+    function isValidEmail(email) {
+      const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(email);
+    }
+  </script>
+</body>
+
+</html>
